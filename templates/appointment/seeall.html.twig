@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Profil RDV
+{% endblock %}
+
+{% block javascripts %}
+	{% block importmap %}
+		{{ importmap(['app']) }}
+	{% endblock %}
+{% endblock %}
+
+
+
+{% block body %}
+	
+	<div class="flex flex-col justify-center items-center min-h-screen mt-40 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+		<h1 class="text-2xl font-bold mb-10 text-black text-center">
+			{% if appointments is not empty %}
+				<div class="text-sm font-medium text-black">
+					{% set firstAppointment = appointments[0] %}
+					Rendez-vous de
+					<span>{{ firstAppointment.user.profile.name }}</span>
+					<span>{{ firstAppointment.user.profile.postname }}</span>
+					<span>{{ firstAppointment.user.profile.firstname }}</span>
+				</div>
+			{% else %}
+				Aucun rendez-vous trouvé.
+			{% endif %}
+		</h1>
+
+		{% if user.appointments is not empty %}
+			<ul class="space-y-4">
+				{% for appointment in user.appointments %}
+					<li class="bg-white p-4 rounded-md shadow-md">
+						<p class="mb-2">
+							<strong class="text-black">Date du rendez-vous :</strong>
+							{{ appointment.getAppointmentDate ? appointment.getAppointmentDate|date('d-m-Y') : 'Non renseigné' }}
+						</p>
+						<p>
+							<strong class="text-black">Heure du rendez-vous :</strong>
+							{{ appointment.getAppointmentTime ? appointment.getAppointmentTime|date('H:i') : 'Non renseigné' }}
+						</p>
+
+						{% if appointment.coach %}
+							<div class="text-sm font-medium text-black mt-2">
+								<strong>Coach :</strong>
+								{{ appointment.coach.profile.name }}
+								{{ appointment.coach.profile.postname }}
+								{{ appointment.coach.profile.firstname }}
+							</div>
+						{% else %}
+							<div class="text-sm font-medium text-black mt-2">Pas de coach assigné</div>
+						{% endif %}
+
+						<div
+							class="flex justify-between mt-auto w-full">
+							
+							<a href="{{ path('app_appointment_new', {'id': user.id}) }}">
+								<img src="{{ asset('img/admin/edit.png') }}" alt="Icon edit" title="Modifier le profil" aria-label="Modifier le profil" class="inline w-6 h-6 sm:w-4 sm:h-4 mx-1"/>
+							</a>
+
+							<form action="{{ path('app_appointment_delete', {'id': appointment.id}) }}" method="post" style="display:inline;">
+								<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ appointment.id) }}">
+								<button type="submit" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?');" class="text-red-600">
+									<img src="{{ asset('img/admin/delete.png') }}" alt="Supprimer" title="Supprimer l'utilisateur" aria-label="Supprimer l'utilisateur" class="inline w-6 h-6 sm:w-4 sm:h-4 mx-1"/>
+								</button>
+							</form>
+						</div>
+					</li>
+				{% endfor %}
+			</ul>
+		{% else %}
+			<p class="text-gray-500">Aucun rendez-vous trouvé.</p>
+		{% endif %}
+
+
+	
+		<div class="mt-6 flex flex-col sm:flex-row justify-between items-center">
+			<a href="{{ path('app_adminpage') }}" class="bg-unst-blue text-white py-2 px-4 rounded hover:text-custom-hover transition duration-300 mb-2 sm:mb-0">
+
+				Retour
+			</a>
+		</div>
+	</div>
+{% endblock %}

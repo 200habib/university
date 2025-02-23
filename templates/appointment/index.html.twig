@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des rendez-vous
+{% endblock %}
+
+{% block javascripts %}
+	{% block importmap %}
+		{{ importmap(['app']) }}
+	{% endblock %}
+{% endblock %}
+
+
+{% block body %}
+	<div class="flex flex-col justify-center items-center min-h-screen mt-40 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+
+		<h1 class="text-2xl font-bold text-black text-center">Liste des rendez-vous</h1>
+
+
+		<div class="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full">
+			{% for appointment in appointments %}
+				<div class="border border-gray-300 rounded-lg p-4 shadow-md flex flex-col items-start space-y-2">
+
+					<div class="text-sm font-medium text-black">
+
+						{{ appointment.user.profile.name }}
+						{{ appointment.user.profile.postname }}
+						{{ appointment.user.profile.firstname }}
+					</div>
+
+					<div class="text-sm text-black">{{ appointment.user.email }}</div>
+
+					{% if appointment.coach %}
+						<div class="text-sm font-medium text-black">
+							Coach :
+							{{ appointment.coach.profile.name }}
+							{{ appointment.coach.profile.postname }}
+							{{ appointment.coach.profile.firstname }}
+						</div>
+					{% else %}
+						<div class="text-sm font-medium text-black">Pas de coach assigné</div>
+					{% endif %}
+
+					<div class="text-sm text-gray-500">
+						{{ appointment.appointmentDate ? appointment.appointmentDate|date('d-m-Y') : '' }}
+						{{ appointment.appointmentTime ? appointment.appointmentTime|date('H:i') : '' }}
+					</div>
+
+
+					<div class="flex justify-between mt-auto w-full">
+						<a href="{{ path('app_appointment_show', {'id': appointment.id}) }}" title="Voir plus">
+							<img src="{{ asset('img/admin/invisible.png') }}" alt="Voir plus" class="inline w-6 h-6 sm:w-4 sm:h-4"/>
+						</a>
+						<a href="{{ path('app_appointment_edit', {'id': appointment.id}) }}" title="Modifier">
+							<img src="{{ asset('img/admin/edit.png') }}" alt="Modifier" class="inline w-6 h-6 sm:w-4 sm:h-4"/>
+						</a>
+						<form method="post" action="{{ path('app_appointment_delete', {'id': appointment.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet élément ?');">
+							<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ appointment.id) }}">
+							<button type="submit" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?');" class="text-red-600">
+
+								<img src="{{ asset('img/admin/delete.png') }}" alt="Supprimer" class="inline w-6 h-6 sm:w-4 sm:h-4"/>
+							</button>
+						</form>
+					</div>
+				</div>
+			{% else %}
+				<p class="text-center text-black col-span-full">Aucun enregistrement trouvé</p>
+			{% endfor %}
+		</div>
+
+
+		<div class="mt-6 text-center flex flex-col w-full space-y-4 sm:flex-row sm:justify-between sm:items-center sm:space-y-0 sm:space-x-4">
+
+			<a href="{% if is_granted('ROLE_ADMIN') %} {{ path('app_adminpage') }} {% elseif is_granted('ROLE_COACH') %} {{ path('app_coachepage') }} {% else %} {{ path('home') }} {% endif %}" class="bg-custom-blue text-white py-2 px-4 rounded hover:text-custom-hover transition duration-300">
+				Retour
+			</a>
+
+			<a href="{{ path('app_appointment_new') }}" class="bg-custom-blue text-white py-2 px-4 rounded hover:text-custom-hover transition duration-300">
+				Ajouter un rendez-vous
+			</a>
+
+		</div>
+
+
+		<div class="mt-24"></div>
+
+	</div>
+
+{% endblock %}

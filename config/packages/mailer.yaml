@@ -1,0 +1,6 @@
+# config/packages/mailer.yaml
+framework:
+    mailer:
+        dsn: '%env(MAILER_DSN)%'
+        # Si tu ne veux pas utiliser le message bus, configure message_bus
+        message_bus: false

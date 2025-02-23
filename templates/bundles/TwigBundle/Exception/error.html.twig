@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Page non trouvée
+{% endblock %}
+
+{% block body %}
+	<div class="flex flex-col items-center justify-center min-h-screen bg-gray-100 text-gray-700">
+		<h1 class="text-6xl font-bold text-red-500">404</h1>
+		<p class="text-2xl mt-4">Oups! 500.</p>
+		<a href="{{ path('app_homepage') }}" class="mt-6 text-blue-500 underline hover:text-blue-700">
+			Retour à l'accueil
+		</a>
+	</div>
+{% endblock %}
+

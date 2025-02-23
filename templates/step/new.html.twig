@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block javascripts %}
+	{% block importmap %}
+		{{ importmap(['app']) }}
+	{% endblock %}
+{% endblock %}
+
+{% block body %}
+
+	<div class="container mx-auto p-6 mt-36 min-h-screen">
+
+		<h1 class="text-3xl font-bold mb-6 text-center">Créer une Nouvelle Étape</h1>
+
+		{{ form_start(form) }}
+
+		<!-- Champ pour le titre de l'étape -->
+		<div class="mb-4">
+			{{ form_row(form.title, {
+            'attr': {
+                'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline',
+                'placeholder': 'Titre de l\'étape'
+            }
+        }) }}
+    </div>
+
+    <!-- Champ pour la description de l'étape -->
+    <div class="mb-6">
+        {{ form_row(form.description, {
+            'attr': {
+                'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline',
+                'rows': 4,
+                'placeholder': 'Description de l\'étape'
+            }
+        }) }}
+    </div>
+
+    <!-- Champ pour les documents -->
+    <div class="mb-6">
+        {{ form_row(form.documents, {
+            'attr': {
+                'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+            }
+        }) }}
+    </div>
+
+    <!-- Boutons d'action -->
+<div class="flex flex-col sm:flex-row items-center justify-between space-y-2 sm:space-y-0 sm:space-x-4">
+	<button type="submit" class="bg-custom-blue text-white py-2 px-4 rounded hover:text-custom-hover transition duration-300 w-full sm:w-auto text-center">
+		Créer
+	</button>
+	<a href="{{ path('app_step_index') }}" class="bg-custom-blue text-white py-2 px-4 rounded hover:text-custom-hover transition duration-300 w-full sm:w-auto text-center">
+		Retour à la liste
+	</a>
+</div>
+
+
+
+    {{ form_end(form) }}
+		</div>
+	{% endblock %}

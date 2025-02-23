@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}FAQ{% endblock %}
+
+{% block javascripts %}
+    {% block importmap %}
+        {{ importmap(['app', 'faq']) }}
+    {% endblock %}
+{% endblock %}
+
+{% block body %}
+    <div class="faq">
+        <div class="faq__container">
+            <h1 class="faq__title">
+                Bienvenue sur notre page FAQ. Voici les questions les plus fréquentes sur nos services et notre mission. Nous espérons que vous y trouverez les réponses à vos questions.
+            </h1>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    Quelles sont les formations que vous conseillez aux étudiants après le bac ?
+                </button>
+                <div class="faq-answer">
+                    <p>Nous proposons diverses formations post-bac adaptées à votre profil et à vos aspirations : universités, BTS, IUT, écoles de commerce et d'ingénieurs, formations professionnelles ou études à l’étranger. Nous vous aidons à choisir la filière qui correspond le mieux à vos intérêts, compétences et objectifs professionnels.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    Comment se passe l’accompagnement pour l'orientation ?
+                </button>
+                <div class="faq-answer">
+                    <p>
+                        Notre accompagnement inclut :
+                        <ul>
+                            <li>Analyse de votre profil, intérêts et ambitions.</li>
+                            <li>Conseils personnalisés pour choisir la bonne filière.</li>
+                            <li>Aide à la préparation des dossiers, notamment Parcoursup.</li>
+                            <li>Suivi jusqu’à l’inscription et préparation aux entretiens.</li>
+                        </ul>
+                    </p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    Quels sont les services d'aide aux démarches proposés ?
+                </button>
+                <div class="faq-answer">
+                    <p>
+                        Nous vous assistons dans toutes les démarches administratives :
+                        <ul>
+                            <li>Aide à la rédaction des lettres de motivation et préparation des dossiers.</li>
+                            <li>Conseils sur l’utilisation de Parcoursup et suivi des réponses.</li>
+                            <li>Assistance pour finaliser l'inscription une fois accepté.</li>
+                        </ul>
+                    </p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    Comment facilitez-vous l'accès à l'emploi pour les chômeurs et les personnes éloignées de la vie professionnelle ?
+                </button>
+                <div class="faq-answer">
+                    <p>Nous offrons des services tels que des ateliers de formation, des conseils en carrière, et des ressources en ligne pour aider les chômeurs et les personnes éloignées de la vie professionnelle à se réinsérer dans le marché du travail.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    Proposez-vous des simulations d’entretiens pour aider à la sélection des écoles ou universités ?
+                </button>
+                <div class="faq-answer">
+                    <p>
+                        Oui, nous organisons des simulations d’entretiens avec des experts en recrutement. Ils vous conseilleront sur la présentation, la gestion du stress, et les réponses aux questions courantes.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="faq__contact">
+            <a href="{{ path('app_contact') }}" class="faq__contact-button">
+                Nous contacter
+            </a>
+        </div>
+    </div>
+{% endblock %}

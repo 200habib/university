@@ -1,0 +1,5 @@
+<form method="post" action="{{ path('app_documents_delete', {'id': document.id}) }}" onsubmit="return confirm('Etes-vous sûr de vouloir supprimer cet élément?');">
+	<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ document.id) }}">
+	<button class="bg-custom-blue text-white py-2 px-4 rounded hover:text-red-500 transition duration-300" aria-label="Supprimer le document">Supprimer</button>
+</form>
+

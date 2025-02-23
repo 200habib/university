@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block javascripts %}
+	{% block importmap %}
+		{{ importmap(['app']) }}
+	{% endblock %}
+{% endblock %}
+
+{% block body %}
+	<div class="container mx-auto mt-40 p-4 min-h-screen">
+		<h1 class="text-center text-3xl font-bold mb-4">Liste des Étapes Démarche</h1>
+
+		<table class="overflow-x-auto table-auto w-full mt-4 border-collapse border rounded-lg shadow-md">
+			<thead>
+				<tr
+					class="bg-gray-200">
+					<!-- En-tête des colonnes -->
+					<th class="px-4 py-2 border border-gray-300">Titre</th>
+					<th class="px-4 py-2 border border-gray-300">Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for step in steps %}
+					<tr class="hover:bg-gray-50">
+						<td class="border px-4 py-2">
+							<a href="{{ path('app_step_show', {id: step.id}) }}" class="text-black hover:underline">
+								{{ step.title }}
+							</a>
+						</td>
+						<td class="border px-4 py-2">
+							<div
+								class="flex items-center justify-center space-x-4">
+								<!-- Icône "Voir plus" -->
+								<a href="{{ path('app_step_show', {id: step.id}) }}" aria-label="Voir l'étape">
+									<img src="{{ asset('img/admin/invisible.png') }}" alt="Voir" class="w-6 h-6 hover:opacity-80"/>
+								</a>
+
+								{% if not is_granted('ROLE_STUDENT') %}
+									<!-- Afficher "Modifier" et "Supprimer" seulement si l'utilisateur n'est pas un étudiant -->
+
+									<!-- Icône "Modifier" -->
+										<a href="{{ path('app_step_edit', {id: step.id}) }}" aria-label="Modifier l'étape"> <img src="{{ asset('img/admin/edit.png') }}" alt="Modifier" class="w-6 h-6 hover:opacity-80"/>
+									</a>
+
+									<!-- Formulaire de suppression avec Icône "Supprimer" -->
+									<form action="{{ path('app_step_delete', {id: step.id}) }}" method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette étape ?');" class="inline-block">
+										<input type="hidden" name="_method" value="DELETE">
+										<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ step.id) }}">
+										<button type="submit" aria-label="Supprimer l'étape">
+											<img src="{{ asset('img/admin/delete.png') }}" alt="Supprimer" class="w-6 h-6 hover:opacity-80"/>
+										</button>
+									</form>
+								{% endif %}
+							</div>
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="2" class="text-center py-4 border">Aucune étape trouvée</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+
+		<div class="mt-6 text-center flex flex-col w-full space-y-4 sm:flex-row sm:justify-between sm:items-center sm:space-y-0 sm:space-x-4">
+			<a href="{% if is_granted('ROLE_ADMIN') %}{{ path('app_adminpage') }}{% elseif is_granted('ROLE_COACH') %}{{ path('app_coachepage') }}{% else %}{{ path('home') }}{% endif %}" class="bg-custom-blue text-white py-2 px-4 rounded hover:text-custom-hover transition duration-300">
+				Retour
+			</a>
+
+			{% if not is_granted('ROLE_STUDENT') %}
+				<!-- Afficher le bouton "Créer une Nouvelle Étape" seulement si l'utilisateur n'est pas un étudiant -->
+				<a href="{{ path('app_step_new') }}" class="bg-custom-blue text-white py-2 px-4 rounded hover:text-custom-hover transition duration-300">
+					Créer une Nouvelle Étape
+				</a>
+			{% endif %}
+		</div>
+	</div>
+{% endblock %}
+

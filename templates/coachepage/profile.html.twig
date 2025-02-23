@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil du Coach
+{% endblock %}
+
+{% block javascripts %}
+	{% block importmap %}
+		{{ importmap(['app']) }}
+	{% endblock %}
+{% endblock %}
+
+
+{% block body %}
+	<div
+class="container mx-auto px-4 py-6 mt-20 min-h-screen">
+
+		<!-- Ajout de mt-10 pour un espacement en haut -->
+		<h1 class="text-2xl font-bold mb-4">Profil Etudiant</h1>
+		<div class="bg-gray-100 p-6 rounded-lg shadow-lg">
+			<p>
+				<strong>Nom :</strong>
+				{{ user.profile.name }}
+			</p>
+			<p>
+				<strong>Post Nom :</strong>
+				{{ user.profile.postname }}
+			</p>
+			<p>
+				<strong>Prénom :</strong>
+				{{ user.profile.firstname }}
+			</p>
+			<p>
+				<strong>Sexe :</strong>
+				{{ user.profile.genre.value ?? 'Non renseigné' }}
+			</p>
+			<p>
+				<strong>Équipe :</strong>
+				{{ user.teams.team }}
+			</p>
+			<p>
+				<strong>Email :</strong>
+				{{ user.email }}
+			</p>
+			<p>
+				<strong>Téléphone :</strong>
+				{{ user.profile.phone }}
+			</p>
+		</div>
+
+		<div class="mt-4 flex justify-between">
+			<a href="{{ path('app_coachepage') }}" class="bg-custom-blue text-white py-2 px-4 rounded hover:text-custom-hover">
+				Retour à l'Espace Coach
+			</a>
+		</div>
+	</div>
+{% endblock %}
+

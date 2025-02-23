@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block javascripts %}
+	{% block importmap %}
+		{{ importmap(['app']) }}
+	{% endblock %}
+{% endblock %}
+
+{% block body %}
+
+	<div
+		class="flex flex-col justify-center items-center min-h-screen mt-40 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+
+	
+		<h1 class="text-2xl font-bold mb-10 text-black text-center">Liste des mes rendez-vous</h1>
+
+		<!-- Liste des rendez-vous -->
+		<ul class="list-disc pl-5">
+			{% for appointment in appointments %}
+				<li>
+					Rendez-vous le
+					{{ appointment.appointmentDate ? appointment.appointmentDate|date('d-m-Y') : '' }}
+					à
+					{{ appointment.appointmentTime ? appointment.appointmentTime|date('H:i') : '' }}
+				</li>
+			{% else %}
+				<p class="text-center text-black">Aucun enregistrement trouvé</p>
+			{% endfor %}
+		</ul>
+
+		<!-- Espace pour le footer -->
+		<div class="mt-24"></div>
+	</div>
+
+{% endblock %}
+

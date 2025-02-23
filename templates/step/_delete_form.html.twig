@@ -1,0 +1,8 @@
+
+<form method="post" style="display:inline-block;">
+	<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ step.id) }}">
+	<input type="hidden" name="_method" value="DELETE">
+<button class="bg-custom-blue text-white py-2 px-4 rounded hover:text-custom-hover">Delete</button>
+
+</form>
+

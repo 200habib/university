@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Conversations Existantes
+{% endblock %}
+
+{% block javascripts %}
+	{% block importmap %}
+		{{ importmap(['app']) }}
+	{% endblock %}
+{% endblock %}
+
+{% block body %}
+	<div class="container mx-auto mt-40 my-8 p-4 min-h-screen flex flex-col justify-between">
+		<div>
+			<!-- Titre et liens d'action -->
+			<div class="flex justify-between items-center mb-4">
+				<h1 class="text-2xl font-bold">Vos Conversations Existantes</h1>
+				<div class="flex space-x-4">
+					<a href="{{ path('app_existing_conversations') }}" class="bg-custom-blue text-white py-2 px-3 rounded hover:text-custom-hover transition duration-300 text-sm sm:text-base">
+						Retour
+					</a>
+					<a href="{{ path('app_conversation_list') }}" class="bg-custom-blue text-white py-2 px-4 rounded hover:text-[#b49047] transition duration-300">
+						Nouveau message
+					</a>
+				</div>
+			</div>
+
+			<!-- Liste des conversations -->
+			<ul class="mt-4 space-y-4">
+				{% for conversation in conversations %}
+					<a href="{{ path('app_conversation_show', { 'id': conversation.id }) }}" class="block">
+						<li
+							class="flex justify-between items-center bg-gray-100 p-4 rounded hover:bg-gray-200 transition shadow">
+							<!-- Participant -->
+							<div class="text-sm text-black">
+								{% set otherParticipant = null %}
+								{% for participant in conversation.participants %}
+									{% if participant != app.user %}
+										{% set otherParticipant = participant %}
+									{% endif %}
+								{% endfor %}
+								{% if otherParticipant %}
+									<span>{{ otherParticipant.email }}</span>
+								{% else %}
+									<span>Email indisponible</span>
+								{% endif %}
+							</div>
+
+							<!-- Messages non lus et date -->
+							<div
+								class="flex flex-col items-end">
+								<!-- Messages non lus -->
+								<div class="text-sm">
+									{% set unreadCount = conversation.messages|filter(message => message.author != app.user and message.isRead == false)|length %}
+									{% if unreadCount > 0 %}
+										<span class="text-gray-600">Non lus:</span>
+										<span class="bg-red-500 text-white px-2 py-1 rounded-full text-xs font-bold">{{ unreadCount }}</span>
+									{% endif %}
+								</div>
+
+								<!-- Date du dernier message -->
+								<div class="text-sm text-gray-600 mt-1">
+									{% set lastMessage = conversation.messages|last %}
+									{% if lastMessage %}
+										<span>{{ lastMessage.createdAt|date('d-m-Y H:i') }}</span>
+									{% else %}
+										<span>Aucun message</span>
+									{% endif %}
+								</div>
+							</div>
+						</li>
+					</a>
+				{% else %}
+					<li class="text-gray-500">Aucune conversation existante trouvée.</li>
+				{% endfor %}
+			</ul>
+		</div>
+
+		<!-- Lien de retour -->
+		{% set return_path = path(
+            is_granted('ROLE_ADMIN') ? 'app_adminpage' :
+            (is_granted('ROLE_COACH') ? 'app_coachepage' :
+            (is_granted('ROLE_STUDENT') ? 'app_student' : 'app_existing_conversations'))
+        ) %}
+	</div>
+{% endblock %}
+

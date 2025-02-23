@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Nouvel Utilisateur Ajouté</title>
+		<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+	</head>
+	<body class="bg-gray-100 font-sans">
+		<div class="container mx-auto max-w-4xl bg-white shadow-md rounded-lg overflow-hidden mt-10">
+			<div class="bg-gray-100 py-4 text-center border-b border-gray-200">
+				<h1 class="text-2xl font-bold text-gray-900">Notification</h1>
+			</div>
+			<div class="p-6 bg-white">
+				<p class="text-gray-700">Bonjour,</p>
+				<p class="text-gray-700 mt-2">Un nouvel utilisateur a été ajouté avec succès.</p>
+				<p class="text-gray-700 mt-2">Voici les détails :</p>
+				<ul class="list-disc list-inside mt-4 mb-4 text-gray-700">
+					<li>
+						<strong class="font-medium">Nom :</strong>
+						{{ user.profile.name }}
+					</li>
+					<li>
+						<strong class="font-medium">Prénom :</strong>
+						{{ user.profile.firstname }}
+					</li>
+					<li>
+						<strong class="font-medium">Email :</strong>
+						{{ user.email }}
+					</li>
+				</ul>
+				<p class="text-gray-700 mt-2">Merci pour votre attention.</p>
+			</div>
+			<div class="bg-gray-100 py-4 text-center border-t border-gray-200">
+				<p class="text-gray-700">&copy; 2024 Votre Société</p>
+			</div>
+		</div>
+	</body>
+</html>
+

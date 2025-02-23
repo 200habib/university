@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+{% block javascripts %}
+	{% block importmap %}
+		{{ importmap(['app']) }}
+	{% endblock %}
+{% endblock %}
+
+
+{% block body %}
+
+
+
+
+	<div class="container mx-auto mt-40 my-8 p-4">
+		{% if app.user %}
+			<h1 class="text-lg sm:text-2xl font-bold mb-4">Liste des utilisateurs</h1>
+			<!-- Réduction de la taille de la police pour mobile -->
+			<table
+				class="min-w-full bg-white shadow overflow-hidden sm:rounded-lg text-sm sm:text-base">
+				<!-- Réduction de la taille du texte pour mobile, taille normale pour sm et au-dessus -->
+				<thead class="bg-gray-50">
+					<tr>
+						<th class="px-4 sm:px-6 py-2 text-left text-xs font-medium text-gray-500 uppercase">Prénom</th>
+						<th class="px-4 sm:px-6 py-2 text-left text-xs font-medium text-gray-500 uppercase">Email</th>
+						<th class="px-4 sm:px-6 py-2 text-left text-xs font-medium text-gray-500 uppercase hidden sm:table-cell"></th>
+						<!-- L'icône est masquée en dessous de "sm" -->
+					</tr>
+				</thead>
+				<tbody class="divide-y divide-gray-200">
+					{% for user in users %}
+						<tr class="hover:bg-gray-100 cursor-pointer" onclick="window.location='{{ path('app_conversation_create', {'id': user.id}) }}'">
+							<td class="px-4 sm:px-6 py-2 whitespace-nowrap">{{ user.profile ? user.profile.firstname : 'Non défini' }}</td>
+							<td class="px-4 sm:px-6 py-2 whitespace-nowrap">{{ user.email }}</td>
+							<td
+								class="px-4 sm:px-6 py-2 whitespace-nowrap hidden sm:table-cell">
+								<!-- L'icône est masquée pour les écrans en dessous de "sm" -->
+								<a href="{{ path('app_conversation_create', {'id': user.id}) }}">
+									<img
+									src="{{ asset('img/admin/messager.png') }}" alt="Icon message" title="Envoyer un message" aria-label="Envoyer un message" class="inline w-5 h-5 sm:w-4 sm:h-4 mx-1"/>
+								<!-- Réduction de la taille de l'icône -->
+								</a>
+							</td>
+						</tr>
+					{% else %}
+						<tr>
+							<td colspan="3" class="text-center text-gray-500 py-4">Aucun utilisateur trouvé.</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		{% endif %}
+	</div>
+	<div
+		class="flex justify-center mb-10">
+		<!-- Centrage horizontal et espace en bas -->
+		<a
+			href="{{ path('app_existing_conversations') }}" class="bg-custom-blue text-white py-2 px-3 rounded hover:text-custom-hover transition duration-300 text-sm sm:text-base">
+		
+			Retour
+		</a>
+	</div>
+{% endblock %}
+

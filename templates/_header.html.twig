@@ -1,0 +1,123 @@
+<header class="header">
+	<nav id="nav_header" class="nav_header">
+		<div class="logo">
+			<a href="{{ path('home') }}" aria-label="Retour à l'accueil">
+				<img src="{{ asset('img/home/logo.png') }}" alt="Logo du site">
+			</a>
+		</div>
+
+		<div class="burger" aria-label="Ouvrir le menu burger">
+			<img src="{{ asset('img/picture/burger.png') }}" alt="menu burger">
+		</div>
+		<div class="nav_links_container">
+			<ul id="main-nav" class="nav_links">
+				<li>
+					<a class="nav_link" href="{{ path('home') }}" aria-label="Accueil">Accueil</a>
+				</li>
+				<li>
+					<a class="nav_link" href="{{ path('app_service') }}" aria-label="Services">Services</a>
+				</li>
+				<li>
+					<a class="nav_link" href="{{ path('app_about') }}" aria-label="À propos">À propos</a>
+				</li>
+				<li>
+					<a class="nav_link" href="{{ path('app_faq') }}" aria-label="FAQ">FAQ</a>
+				</li>
+				<li>
+					<a class="nav_link" href="{{ path('app_contact') }}" aria-label="Contact">Contact</a>
+				</li>
+
+				{% if app.user %}
+					<li class="nav_icon_profile" aria-label="Ouvrir le menu du profil utilisateur">
+						<img src="{{ asset('img/navbar/iconProfile.png') }}" alt="Icône du profil utilisateur">
+					</li>
+				{% else %}
+					<li>
+						<button class="nav_button" onclick="window.location.href='{{ path('app_login') }}'" aria-label="Se connecter">
+							Se connecter
+						</button>
+					</li>
+				{% endif %}
+			</ul>
+			{% include '_partials/menuAdmin.html.twig' %}
+		</div>
+	</nav>
+
+	<nav class="burg" style="display: none">
+		<div class="burger-menu" aria-label="Menu burger">
+			<div class="line"></div>
+			<div class="line"></div>
+			<div class="line"></div>
+		</div>
+
+		<ul class="nav-links">
+			<li>
+				<a href="{{ path('home') }}" aria-label="Accueil">Accueil</a>
+			</li>
+			<li>
+				<a href="{{ path('app_service') }}" aria-label="Services">Services</a>
+			</li>
+			<li>
+				<a href="{{ path('app_about') }}" aria-label="À propos">À propos</a>
+			</li>
+			<li>
+				<a href="{{ path('app_faq') }}" aria-label="FAQ">FAQ</a>
+			</li>
+			<li>
+				<a href="{{ path('app_contact') }}" aria-label="Contact">Contact</a>
+			</li>
+
+			{% if app.user %}
+				<li>
+					<a href="{{ path('app_documents_index') }}" aria-label="Mes Documents">Mes Documents</a>
+				</li>
+
+				<li>
+					<a href="{{ path('app_step_index') }}" aria-label="Voir les Démarche">
+
+
+						Voir les Démarche
+
+
+					</a>
+
+				</li>
+
+				<li>
+					{% if 'ROLE_STUDENT' in app.user.roles %}
+						<a href="{{ path('app_student_appointments') }}" aria-label="Mes rendez-vous">Mes rendez-vous</a>
+					{% else %}
+						<a href="{{ path('app_appointment_index') }}" aria-label="Voir les rendez-vous">Voir les rendez-vous</a>
+					{% endif %}
+				</li>
+				<li>
+					<a href="{{ path('app_existing_conversations') }}" aria-label="Messages">Messages</a>
+				</li>
+				{% if 'ROLE_ADMIN' in app.user.roles %}
+					<li>
+						<a href="{{ path('app_adminpage') }}" aria-label="Espace Admin">Espace Admin</a>
+					</li>
+				{% elseif 'ROLE_COACH' in app.user.roles %}
+					<li>
+						<a href="{{ path('app_coachepage') }}" aria-label="Espace COACH">Espace COACH</a>
+					</li>
+				{% elseif 'ROLE_USER' in app.user.roles %}
+					<li>
+						<a href="{{ path('app_myprofile') }}" aria-label="Mon profil">Mon profil</a>
+
+
+					</li>
+				{% endif %}
+				<li>
+					<a href="{{ path('app_logout') }}" aria-label="Déconnexion">Déconnexion</a>
+				</li>
+			{% else %}
+				<li>
+					<button class="nav_button" onclick="window.location.href='{{ path('app_login') }}'" aria-label="Se connecter">
+						Se connecter
+					</button>
+				</li>
+			{% endif %}
+		</ul>
+	</nav>
+</header>

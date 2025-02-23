@@ -1,0 +1,21 @@
+<div class="bg-gray-50 p-6">
+	<h1 class="text-xl font-bold text-black mb-4">Bonjour !</h1>
+
+	<p class="text-black mb-4">
+		Pour réinitialiser votre mot de passe, veuillez cliquer sur le lien suivant :
+	</p>
+
+	<a href="{{ url('app_reset_password', {token: resetToken.token}) }}" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg mb-4">
+		Réinitialiser votre mot de passe
+	</a>
+
+	<p class="text-black mb-4">
+		Ce lien expirera dans
+		<span class="font-semibold">
+			{{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.
+		</span>
+	</p>
+
+	<p class="text-black">À bientôt !</p>
+</div>
+

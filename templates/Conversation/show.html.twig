@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Conversation
+{% endblock %}
+
+{% block javascripts %}
+	{% block importmap %}
+		{{ importmap(['app']) }}
+	{% endblock %}
+{% endblock %}
+
+
+
+{% block body %}
+
+<div class="container mx-auto mt-40 my-8 p-4 min-h-screen">
+
+		<h2 class="text-xl font-bold mb-4 text-center">
+			{% for participant in conversation.participants %}
+				{% if participant != app.user %}
+					{{ participant.profile ? participant.profile.firstname : 'Nom indisponible' }}
+				{% endif %}
+			{% endfor %}
+		</h2>
+
+		{% set today = "now"|date("Y-m-d") %}
+		<ul class="space-y-3 mb-6">
+			{% for message in conversation.messages %}
+				{% if message.author == app.user %}
+					<!-- Message de l'utilisateur actuel (aligné à droite) -->
+					<li class="bg-blue-900 text-white p-4 rounded-lg w-3/4 ml-auto relative">
+						<p class="text-white">{{ message.content }}</p>
+						<small class="text-xs text-gray-300 absolute bottom-2 right-2">
+							{% if message.createdAt|date("Y-m-d") == today %}
+								{{ message.createdAt|date('H:i') }}
+							{% else %}
+								{{ message.createdAt|date('d-m-Y H:i') }}
+							{% endif %}
+						</small>
+					</li>
+				{% else %}
+					<!-- Message d'un autre utilisateur (aligné à gauche) -->
+					<li class="bg-indigo-700 text-white p-4 rounded-lg w-3/4 mr-auto relative">
+						<p class="text-white">{{ message.content }}</p>
+						<small class="text-xs text-gray-300 absolute bottom-2 right-2">
+							{% if message.createdAt|date("Y-m-d") == today %}
+								{{ message.createdAt|date('H:i') }}
+							{% else %}
+								{{ message.createdAt|date('d-m-Y H:i') }}
+							{% endif %}
+						</small>
+					</li>
+				{% endif %}
+			{% endfor %}
+		</ul>
+
+		{{ form_start(form) }}
+		<div class="mb-4">
+			{{ form_widget(form.content, {'attr': {'class': 'w-full p-2 rounded-lg bg-gray-200', 'placeholder': 'Rédigez un message............'}}) }}
+		</div>
+		<div class="flex justify-between items-center mb-4">
+			<a href="{{ path('app_existing_conversations') }}" class="bg-custom-blue text-white flex py-2 px-4 rounded hover:text-[#b49047] transition duration-300">
+				Retour
+			</a>
+			<button type="submit" class="bg-custom-blue text-white py-2 px-4 rounded hover:text-[#b49047] transition duration-300">
+				Envoyer
+			</button>
+		</div>
+		{{ form_end(form) }}
+	</div>
+{% endblock %}
+

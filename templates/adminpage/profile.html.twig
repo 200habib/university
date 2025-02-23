@@ -1,0 +1,156 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil de l'utilisateur
+{% endblock %}
+
+{% block javascripts %}
+	{% block importmap %}
+		{{ importmap(['app', 'faq']) }}
+	{% endblock %}
+{% endblock %}
+
+{% block body %}
+	{% for label, messages in app.flashes %}
+		{% for message in messages %}
+			{% include '_notification.html.twig' %}
+		{% endfor %}
+	{% endfor %}
+
+	<div class="container mx-auto px-4 py-12 mt-8">
+		<h1 class="text-3xl font-bold mb-6 text-center text-black">Profil de l'utilisateur</h1>
+
+		<div
+			class="bg-gray-100 p-6 rounded-lg shadow-lg">
+			<!-- Grid Container -->
+			<div
+				class="grid grid-cols-1 md:grid-cols-2 gap-6">
+				<!-- Colonne 1 -->
+				<div class="space-y-4">
+					<p>
+						<strong class="text-black">Nom :</strong>
+						<span class="text-gray-800">{{ user.profile.name }}</span>
+					</p>
+					<p>
+						<strong class="text-black">Post Nom :</strong>
+						<span class="text-gray-800">{{ user.profile.postname }}</span>
+					</p>
+					<p>
+						<strong class="text-black">Prénom :</strong>
+						<span class="text-gray-800">{{ user.profile.firstname }}</span>
+					</p>
+					<p>
+						<strong class="text-black">Date de naissance :</strong>
+						<span class="text-gray-800">{{ user.profile.dateOfBirth ? user.profile.dateOfBirth|date('d-m-Y') : 'Non renseigné' }}</span>
+					</p>
+					<p>
+						<strong class="text-black">Sexe :</strong>
+						<span class="text-gray-800">{{ user.profile.genre.value ?? 'Non renseigné' }}</span>
+					</p>
+					<p>
+						<strong class="text-black">Téléphone :</strong>
+						<span class="text-gray-800">{{ user.profile.phone }}</span>
+					</p>
+					<p>
+						<strong class="text-black">Email :</strong>
+						<span class="text-gray-800">{{ user.email }}</span>
+					</p>
+					<p>
+						<strong class="text-black">Rôle :</strong>
+						<span class="text-gray-800">{{ user.roles|join(', ') }}</span>
+					</p>
+				</div>
+
+				<!-- Colonne 2 -->
+				<div class="space-y-4">
+					<p>
+						<strong class="text-black">Équipe :</strong>
+						<span class="text-gray-800">{{ user.teams.team }}</span>
+					</p>
+					<p>
+						<strong class="text-black">Numéro de Passeport :</strong>
+						<span class="text-gray-800">{{ user.profile.passport.numberPassport ?? 'Non renseigné' }}</span>
+					</p>
+					<p>
+						<strong class="text-black">Date d'expiration :</strong>
+						<span class="text-gray-800">{{ user.profile.passport.dateExpiration ? user.profile.passport.dateExpiration|date('d-m-Y') : 'Non renseigné' }}</span>
+					</p>
+					<p>
+						<strong class="text-black">Nationalité :</strong>
+						<span class="text-gray-800">{{ user.profile.passport.nationalite ?? 'Non renseigné' }}</span>
+					</p>
+					<p>
+						<strong class="text-black">Profession :</strong>
+						<span class="text-gray-800">{{ user.profile.passport.profession ?? 'Non renseigné' }}</span>
+					</p>
+					<p>
+						<strong class="text-black">Adresse :</strong>
+						<span class="text-gray-800">{{ user.profile.address }}</span>
+					</p>
+					<p>
+						<strong class="text-black">Date de création :</strong>
+						<span class="text-gray-800">{{ user.profile.dateCreation ? user.profile.dateCreation|date('d-m-Y') : 'Non renseigné' }}</span>
+					</p>
+					<p>
+						<strong class="text-black">Date d'inscription :</strong>
+						<span class="text-gray-800">{{ user.profile.dateInscrit ? user.profile.dateInscrit|date('d-m-Y') : 'Non renseigné' }}</span>
+					</p>
+				</div>
+			</div>
+
+			<!-- Étapes -->
+			<div class="mt-8">
+				<h2 class="text-2xl font-bold text-black">Étapes</h2>
+				{% if steps is not empty %}
+					<ul class="space-y-4">
+						{% for step in steps %}
+							<li class="bg-white p-4 rounded-md shadow-md">
+								<p>
+									<strong class="text-black">Titre :</strong>
+									{{ step.title }}</p>
+								<p>
+									<strong class="text-black">Description :</strong>
+									{{ step.description }}</p>
+							</li>
+						{% endfor %}
+					</ul>
+				{% else %}
+					<p class="text-gray-500">Aucune étape trouvée.</p>
+				{% endif %}
+			</div>
+
+			<!-- Rendez-vous -->
+			<div class="mt-8">
+				<h2 class="text-2xl font-bold text-black">Rendez-vous</h2>
+				{% if user.appointments is not empty %}
+					<ul class="space-y-4">
+						{% for appointment in user.appointments %}
+							<li class="bg-white p-4 rounded-md shadow-md">
+								<p>
+									<strong class="text-black">Date :</strong>
+									{{ appointment.getAppointmentDate ? appointment.getAppointmentDate|date('d-m-Y') : 'Non renseigné' }}
+								</p>
+								<p>
+									<strong class="text-black">Heure :</strong>
+									{{ appointment.getAppointmentTime ? appointment.getAppointmentTime|date('H:i') : 'Non renseigné' }}
+								</p>
+							</li>
+						{% endfor %}
+					</ul>
+				{% else %}
+					<p class="text-gray-500">Aucun rendez-vous trouvé.</p>
+				{% endif %}
+			</div>
+
+			<!-- Boutons -->
+			<div class="mt-6 flex flex-col sm:flex-row justify-between items-center">
+				<a href="{{ path('app_adminpage') }}" class="bg-custom-blue text-white py-2 px-4 rounded hover:text-custom-hover transition duration-300 mb-2 sm:mb-0 w-full sm:w-auto text-center">
+					Retour
+				</a>
+				<a href="{{ path('app_edit', { id: user.id }) }}" class="bg-custom-blue text-white py-2 px-4 rounded hover:text-custom-hover transition duration-300 w-full sm:w-auto text-center">
+					Modifier le Profil
+				</a>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+

@@ -1,0 +1,91 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil
+{% endblock %}
+
+{% block javascripts %}
+	{% block importmap %}
+		{{ importmap(['app']) }}
+	{% endblock %}
+{% endblock %}
+
+{% block body %}
+	<div class="bg-gray-100">
+		<div class="relative mb-8">
+			<div class="relative">
+				<img src="{{ asset('img/home/homeprofil.png') }}" alt="Illustration représentant la réussite académique" class="w-full max-w-full h-auto object-contain mt-10">
+				<div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 p-2 sm:p-3 md:p-4 w-[90%] sm:w-auto">
+					<div class="bg-custom-blue bg-opacity-80 p-1 sm:p-2 md:p-3 rounded-lg text-center text-white text-xs sm:text-xs md:text-sm leading-tight">
+						Avec
+						<strong>Univers du Scientifique</strong>, profitez d’un accompagnement efficace et d’un coaching sur mesure qui vous fait prendre des ailes.
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<main>
+			<section class="container mx-auto text-center px-4 md:px-5 xl:px-16 mb-8">
+				<h1 class="text-2xl sm:text-3xl xl:text-4xl font-bold mb-4 sm:mb-6">
+					ACCOMPAGNEMENT POUR LES ÉTUDES À L'INTERNATIONAL
+				</h1>
+
+				<div class="grid gap-6 md:grid-cols-2 xl:gap-8">
+					<article class="relative flex flex-col md:flex-row order-1 md:order-2">
+						<img src="{{ asset('img/home/img1.png') }}" alt="Voyage pour raison d'études, illustration d'un étudiant avec des bagages" class="rounded-lg mb-4 md:mb-0 w-full max-w-lg mx-auto md:max-w-full">
+						<a href="{{ path('app_service') }}" class="absolute bottom-0 left-0 w-full bg-custom-blue text-white font-semibold py-3 px-4 rounded-b-lg hover:bg-blue-900 text-center" aria-label="Lien vers plus d'informations sur le voyage pour raison d'études">
+							Voyage pour raison d’études &gt;
+						</a>
+					</article>
+
+					<article class="flex flex-col justify-center text-left order-2 md:order-1">
+						<p class="text-base sm:text-lg xl:text-xl mb-4">
+							Obtenez un accompagnement complet, sécurisé et confidentiel dans vos démarches de voyage à l’international. Nous construisons avec vous votre projet de voyage et vous accompagnons pas à pas jusqu’à la réalisation de votre rêve.
+						</p>
+					</article>
+				</div>
+
+				<div class="grid gap-6 md:grid-cols-2 mt-8 xl:gap-8">
+					<article class="relative flex flex-col md:flex-row">
+						<img src="{{ asset('img/home/img2.png') }}" alt="Voyage pour l’emploi, illustration d'une personne travaillant à l'étranger" class="rounded-lg mb-4 md:mb-0 w-full max-w-lg mx-auto md:max-w-full">
+						<a href="{{ path('app_service') }}" class="absolute bottom-0 left-0 w-full bg-custom-blue text-white font-semibold py-3 px-4 rounded-b-lg hover:bg-blue-900 text-center" aria-label="Lien vers plus d'informations sur le voyage pour l’emploi">
+							Voyage pour l’emploi &gt;
+						</a>
+					</article>
+
+					<article class="flex flex-col justify-center text-left">
+						<p class="text-base sm:text-lg xl:text-xl mb-4">
+							Nos conseillers et coachs vous montrent des dispositifs de financement, de sécurisation et facilitation de votre projet. Nous remplissons les formalités pour vous donner des ailes.
+						</p>
+					</article>
+				</div>
+			</section>
+
+			<section class="container mx-auto text-center py-10 px-4 md:px-5 xl:px-16">
+				<p class="text-base sm:text-lg xl:text-xl mb-4">
+					Pour vous informer sur le pays ou la ville correspondant à votre projet, nous vous fournissons les détails sur le coût de vie, le logement, les frais de scolarité (si voyage pour études), transports, frais liés aux formalités administratives, etc.
+				</p>
+				<a href="{{ path('app_contact') }}" class="inline-block bg-custom-blue text-white font-semibold py-3 px-6 rounded-lg hover:bg-blue-900 transition duration-300" aria-label="Lien pour parler à un conseiller">
+					Parler à un conseiller
+				</a>
+			</section>
+
+			<section class="container mx-auto text-center px-2 md:px-5 xl:px-16">
+				<img src="{{ asset('img/home/biblotheque.png') }}" alt="Image de conseillers travaillant ensemble dans une bibliothèque" class="rounded-lg mb-4 mx-auto w-full max-w-4xl">
+			</section>
+
+			<section class="container mx-auto text-center py-10 px-4 md:px-5 xl:px-16">
+				<h2 class="text-2xl font-bold mb-4">
+					Innovation Métiers & US' Emploi
+				</h2>
+				
+				<p class="text-base sm:text-lg xl:text-xl mb-6">
+					Création de métiers numériques, formations d'avenir en ligne ou en présentiel, accompagnement vers l'emploi durable avec suivi personnalisé. Financement total pour personnes handicapées et formations certifiantes.
+				</p>
+				<a href="{{ path('app_service') }}" class="inline-block bg-custom-blue text-white font-semibold py-2 px-4 xl:py-4 xl:px-6 rounded-lg hover:bg-blue-900" aria-label="Lien pour voir plus d'informations sur l'innovation métiers et US' Emploi">
+					Voir plus
+				</a>
+			</section>
+		</main>
+	</div>
+{% endblock %}
+

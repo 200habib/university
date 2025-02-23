@@ -1,0 +1,17 @@
+_security_logout:
+    resource: security.route_loader.logout
+    type: service
+
+
+
+# security:
+#     role_hierarchy:
+#         ROLE_COACH: ROLE_USER
+#         ROLE_ADMIN: [ROLE_COACH, ROLE_USER]
+
+#     firewalls:
+#         main:
+#             anonymous: true
+#             logout:
+#                 path: /logout
+#                 target: /

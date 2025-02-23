@@ -1,0 +1,87 @@
+{# {% extends 'base.html.twig' %}
+
+{% block title %}Liste des rendez-vous
+{% endblock %}
+
+{% block javascripts %}
+	{{ importmap('app') }}
+{% endblock %}
+
+
+{% block body %}
+	<div
+		class="flex flex-col justify-center items-center min-h-screen mt-40 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+
+		<!-- Contenu principal -->
+<h1 class="text-2xl font-bold mb-10 text-black text-center">Liste des rendez-vous</h1>
+
+<!-- Grille de cartes -->
+<div class="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full">
+	{% for appointment in appointments %}
+		<div
+			class="border border-gray-300 rounded-lg p-4 shadow-md flex flex-col items-start space-y-2">
+
+			<!-- Informations de l'étudiant -->
+			<div class="text-sm font-medium text-black">
+
+				{{ appointment.user.profile.name }}
+				{{ appointment.user.profile.postname }}
+				{{ appointment.user.profile.firstname }}
+			</div>
+
+			<!-- Email de l'utilisateur (étudiant) -->
+			<div class="text-sm text-black">{{ appointment.user.email }}</div>
+
+			<!-- Informations du coach -->
+			{% if appointment.coach %}
+				<div class="text-sm font-medium text-black">
+					Coach :
+					{{ appointment.coach.profile.name }}
+					{{ appointment.coach.profile.postname }}
+					{{ appointment.coach.profile.firstname }}
+				</div>
+			{% else %}
+				<div class="text-sm font-medium text-black">Pas de coach assigné</div>
+			{% endif %}
+
+			<!-- Date et heure du rendez-vous -->
+			<div class="text-sm text-gray-500">
+				{{ appointment.appointmentDate ? appointment.appointmentDate|date('d-m-Y') : '' }}
+				{{ appointment.appointmentTime ? appointment.appointmentTime|date('H:i') : '' }}
+			</div>
+
+			<!-- Actions -->
+			<div class="flex justify-between mt-auto w-full">
+				<a href="{{ path('app_appointment_show', {'id': appointment.id}) }}" title="Voir plus">
+					<img src="{{ asset('img/admin/invisible.png') }}" alt="Voir plus" class="inline w-6 h-6 sm:w-4 sm:h-4"/>
+				</a>
+				<a href="{{ path('app_appointment_edit', {'id': appointment.id}) }}" title="Modifier">
+					<img src="{{ asset('img/admin/edit.png') }}" alt="Modifier" class="inline w-6 h-6 sm:w-4 sm:h-4"/>
+				</a>
+				<form method="post" action="{{ path('app_appointment_delete', {'id': appointment.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet élément ?');">
+					<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ appointment.id) }}">
+					<button type="submit" title="Supprimer">
+						<img src="{{ asset('img/admin/delete.png') }}" alt="Supprimer" class="inline w-6 h-6 sm:w-4 sm:h-4"/>
+					</button>
+				</form>
+			</div>
+		</div>
+	{% else %}
+		<p class="text-center text-black col-span-full">Aucun enregistrement trouvé</p>
+	{% endfor %}
+</div>
+
+<div class="mt-6 flex flex-row justify-between items-center space-x-4">
+	<a href="{{ path('app_adminpage') }}" class="bg-[#14213D] text-white py-2 px-4 rounded hover:text-[#b49047] transition duration-300">
+		Retour
+	</a>
+	<a href="{{ path('app_appointment_new') }}" class="bg-[#14213D] text-white py-2 px-4 rounded hover:text-[#b49047] transition duration-300">
+		Créer un nouveau rendez-vous
+	</a>
+</div>
+
+
+		<div class="mt-24"></div>
+	</div>
+{% endblock %}
+ #}

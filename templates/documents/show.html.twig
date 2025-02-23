@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Documents
+{% endblock %}
+
+{% block javascripts %}
+	{% block importmap %}
+		{{ importmap(['app']) }}
+	{% endblock %}
+{% endblock %}
+
+
+{% block body %}
+	<div class="container mx-auto py-8 mt-20 px-4 sm:px-0 min-h-screen">
+
+		<h1 class="text-2xl font-bold text-center text-cubg-custom-blue mb-6">Détails du document</h1>
+
+		<div class="overflow-x-auto">
+			<table class="min-w-full bg-white shadow-md rounded mb-6">
+				<tbody>
+					<tr class="border-b">
+						<th class="px-4 py-2 text-left bg-gray-100">Nom du fichier</th>
+						<td class="px-4 py-2">{{ document.fileName }}</td>
+					</tr>
+					{# <tr class="border-b">
+										<th class="px-4 py-2 text-left bg-gray-100">Date de téléchargement</th>
+										<td class="px-4 py-2">{{ document.downloadDate ? document.downloadDate|date('Y-m-d') : '' }}</td>
+									</tr> #}
+					<tr class="border-b">
+						<th class="px-4 py-2 text-left bg-gray-100">Utilisateur</th>
+						<td class="px-4 py-2">{{ document.user ? document.user.email : 'Aucun utilisateur' }}</td>
+					</tr>
+					<tr class="border-b">
+						<th class="px-4 py-2 text-left bg-gray-100">Destinataire</th>
+						<td class="px-4 py-2">{{ document.coach ? document.coach.email : 'Non assigné' }}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<!-- Boutons avec disposition responsive -->
+		<div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+			<a href="{{ path('app_documents_index') }}" class="bg-custom-blue text-white py-2 px-4 rounded hover:text-custom-hover transition duration-300 text-center">
+				Retour à la liste
+			</a>
+
+			<a href="{{ path('app_documents_edit', {'id': document.id}) }}" class="bg-custom-blue text-white py-2 px-4 rounded hover:text-green-500 transition duration-300 text-center">
+				Éditer
+			</a>
+
+			<a href="{{ asset('uploads/documents/' ~ document.fileName) }}" download class="bg-custom-blue text-white py-2 px-4 rounded hover:text-custom-hover transition duration-300 text-center">
+				Télécharger
+			</a>
+
+			{{ include('documents/_delete_form.html.twig', { 'button_label': 'Mettre à jour', 'attr': { 'class': 'bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 transition duration-300 text-center w-full sm:w-auto' } }) }}
+		</div>
+	</div>
+{% endblock %}
+

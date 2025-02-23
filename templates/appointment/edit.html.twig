@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier le rendez-vous
+{% endblock %}
+{% block javascripts %}
+	{% block importmap %}
+		{{ importmap(['app']) }}
+	{% endblock %}
+{% endblock %}
+
+
+{% block body %}
+	<h1 class="text-2xl font-bold mb-6 text-black">Modifier le rendez-vous</h1>
+
+	<div class="bg-white p-6 rounded-lg shadow-md mt-10 mb-6">
+		{{ include('appointment/_form.html.twig', {'button_label': 'Mettre à jour'}) }} 
+{# {{ include('appointment/_delete_form.html.twig', {'class': 'bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded'}) }} #}
+
+
+	</div>
+
+
+
+
+
+{% endblock %}
+

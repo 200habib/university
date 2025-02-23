@@ -1,0 +1,56 @@
+<footer >
+	<div class="footer-container ">
+		<div class="logo">
+			<a href="{{ path('home') }}" aria-label="Retour à l'accueil">
+				<img src="{{ asset('img/home/logos.png') }}" alt="Logo du site">
+			</a>
+		</div>
+
+		<div class="help-section">
+			<h3 class="footer-help">BESOIN D'AIDE ?</h3>
+			<div class="later">
+				<a class="footer-answer" href="{{ path('app_faq')}}" aria-label="FAQ">FAQ</a>
+				<a class="footer-answer" href="{{ path('app_contact')}}" aria-label="Contactez-nous">Nous contacter</a>
+			</div>
+		</div>
+
+		<div class="social-section">
+			<h3 class="footer-help">RESTER CONNECTÉ</h3>
+			<div class="ft">
+				<a class="logo" href="https://www.facebook.com/YourPageName" target="_blank" aria-label="Visitez notre page Facebook">
+					<img src="{{ asset('img/home/facebook.png') }}" alt="Facebook">
+				</a>
+				<a class="logo" href="https://www.youtube.com/YourChannelName" target="_blank" aria-label="Visitez notre chaîne YouTube">
+					<img src="{{ asset('img/home/youtube.png') }}" alt="YouTube">
+				</a>
+			</div>
+		</div>
+
+		<div class="contact-section">
+			<a href="{{ path('app_contact') }}" aria-label="Page de contact">
+				<h3 class="footer-help">CONTACT</h3>
+			</a>
+
+			<p class="footer-answer">
+				Adresse : 5573, Avenue Kauka a/Batetela<br>
+				Commune/Gombe Immeuble Maisha Park<br>
+				Local C12, Kinshasa, Democratic Republic of the Congo<br>
+				Tél: +243 999 103 505<br>
+				E-mail:
+				<a href="mailto:univsc288@gmail.com" aria-label="Envoyer un email à univsc288@gmail.com">univsc288@gmail.com</a>
+			</p>
+		</div>
+	</div>
+	<div class="credits-content">
+		<p>
+			<a href="/mentions-legales" class="credits-link" aria-label="Mentions Légales">Mentions Légales</a>
+			|
+			<a href="/politique-de-confidentialite" class="credits-link" aria-label="Politique de Confidentialité">Politique de Confidentialité</a>
+		</p>
+		<p>
+			<span id="current-year"></span>
+			&copy; Univers du Scientifique. Tous droits réservés.
+		</p>
+	</div>
+</footer>
+

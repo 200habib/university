@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Index des documents
+{% endblock %}
+
+{% block javascripts %}
+	{% block importmap %}
+		{{ importmap(['app']) }}
+	{% endblock %}
+{% endblock %}
+
+{% block body %}
+<div class="container mx-auto mt-32 min-h-screen px-4 sm:px-6 lg:px-8">
+
+
+		<!-- Added responsive padding -->
+		<h1 class="text-2xl font-bold text-center text-custbg-custom-blue mb-6">Liste des documents</h1>
+
+		<div
+			class="overflow-x-auto bg-white shadow-md rounded">
+			<!-- Limite la hauteur et permet le défilement interne pour fixer l'en-tête -->
+			<div class="max-h-[500px] overflow-y-auto">
+				<table class="min-w-full bg-white">
+					<thead class="bg-custom-blue text-white sticky top-0 z-10">
+						<tr>
+							<th class="px-6 py-3 text-left font-semibold">Nom du fichier</th>
+							{% if not is_granted('ROLE_STUDENT') %}
+								<th class="px-6 py-3 font-semibold hidden sm:table-cell text-center">Utilisateur</th>
+							{% endif %}
+							<th class="px-6 py-3 text-center font-semibold hidden sm:table-cell">Destinataire</th>
+							<th class="px-6 py-3 text-left font-semibold"></th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for document in documents %}
+							<tr class="border-b hover:bg-gray-100 cursor-pointer" {% if not is_granted('ROLE_STUDENT') %} onclick="window.location='{{ path('app_documents_show', {'id': document.id}) }}'" {% endif %}>
+								<td class="px-6 py-4">{{ document.fileName }}</td>
+								{% if not is_granted('ROLE_STUDENT') %}
+									<td class="px-6 py-4 text-center hidden sm:table-cell">{{ document.user ? document.user.email : 'Aucun utilisateur' }}</td>
+								{% endif %}
+								<td class="px-6 py-4 text-center hidden sm:table-cell">{{ document.coach ? document.coach.email : 'Non assigné' }}</td>
+								<td class="px-6 py-4 text-center">
+									{% if is_granted('ROLE_STUDENT') %}
+										<a href="{{ asset('uploads/documents/' ~ document.fileName) }}" class="text-purple-500 hover:text-purple-700" download aria-label="Télécharger {{ document.fileName }}" title="Télécharger">
+											Télécharger
+										</a>
+									{% else %}
+										<a href="{{ asset('uploads/documents/' ~ document.fileName) }}" class="text-purple-500 hover:text-purple-700 hidden sm:inline" download aria-label="Télécharger {{ document.fileName }}" title="Télécharger le document">
+											<img src="{{ asset('img/admin/download.png') }}" alt="Télécharger" class="w-5 h-5 inline">
+										</a>
+										<form method="post" action="{{ path('app_documents_delete', {'id': document.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce document ?');" style="display: inline;">
+											<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ document.id) }}">
+											<button type="submit" class="text-red-500 hover:text-red-700 hidden sm:inline" aria-label="Supprimer {{ document.fileName }}" title="Supprimer le document">
+												<img src="{{ asset('img/admin/delete.png') }}" alt="Supprimer" class="w-5 h-5 inline">
+											</button>
+										</form>
+									{% endif %}
+								</td>
+							</tr>
+						{% else %}
+							<tr>
+								<td colspan="4" class="text-center py-4">Aucun document trouvé</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<div class="flex flex-col items-center space-y-4 sm:flex-row sm:justify-between sm:space-y-0 sm:space-x-4 mb-10 px-4 mt-6">
+
+
+			{% set returnPath = is_granted('ROLE_ADMIN') ? path('app_adminpage') : is_granted('ROLE_COACH') ? path('app_coachepage') : is_granted('ROLE_STUDENT') ? path('app_student') : path('app_existing_conversations') %}
+
+
+			<a href="{{ returnPath }}" class="bg-custom-blue text-white py-2 px-4 rounded hover:text-custom-hover transition duration-300 text-center w-full sm:w-auto">
+				Retour
+			</a>
+
+
+			<a href="{{ path('app_documents_new') }}" class="bg-custom-blue text-white py-2 px-4 rounded hover:text-custom-hover transition duration-300 text-center w-full sm:w-auto">
+				Envoyer un document
+			</a>
+		</div>
+
+
+	</div>
+{% endblock %}

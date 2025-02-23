@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Service{% endblock %}
+
+{% block javascripts %}
+    {% block importmap %}
+        {{ importmap(['app']) }}
+    {% endblock %}
+{% endblock %}
+
+{% block body %}
+    <main class="service">
+        <section class="service__header">
+            <div class="service__header-container">
+                <div class="service__header-image">
+                    <img src="{{ asset('img/service/call.png') }}" alt="Service Image" class="service__header-img">
+                </div>
+                <div class="service__header-content">
+                    <h1 class="service__header-title">Services exclusifs</h1>
+                    <p class="service__header-description">Ceci est notre Page de services. C'est l'endroit idéal pour vous fournir des informations sur les services que nous proposons.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="service__grid">
+            <!-- Ajout des sections services -->
+            <article class="service__card">
+                <h2 class="service__card-title">Formations professionnelles</h2>
+                <img src="{{ asset('img/service/prof.png') }}" alt="Formation Professionnelles" class="service__card-image">
+                <p class="service__card-description">Avec nos experts, nous organisons des formations professionnelles dans les domaines clés de l'activité économique du pays...</p>
+            </article>
+
+            <article class="service__card">
+                <h2 class="service__card-title">Innovation Métiers</h2>
+                <img src="{{ asset('img/service/innovation.png') }}" alt="Innovation Métiers" class="service__card-image">
+                <p class="service__card-description">Avec le soutien du Gouvernement, nous créons de nouveaux métiers pour promouvoir la société numérique...</p>
+            </article>
+
+            <article class="service__card">
+                <h2 class="service__card-title">US' Emploi</h2>
+                <img src="{{ asset('img/service/us.png') }}" alt="US' Emploi" class="service__card-image">
+                <p class="service__card-description">L’action "Tout pour l’Emploi" vise à accompagner des personnes en difficultés sociales et professionnelles vers un emploi durable...</p>
+            </article>
+
+            <article class="service__card">
+                <h2 class="service__card-title">Ateliers de professionnalisation</h2>
+                <img src="{{ asset('img/service/ateliers.png') }}" alt="Ateliers de professionnalisation" class="service__card-image">
+                <p class="service__card-description">L'US en collaboration avec des universités, instituts supérieurs, voire des écoles organise au bénéfice des étudiants...</p>
+            </article>
+
+            <article class="service__card">
+                <h2 class="service__card-title">Organisation des jeux concours</h2>
+                <img src="{{ asset('img/service/organisation.png') }}" alt="Organisation des jeux concours" class="service__card-image">
+                <p class="service__card-description">L'US organise des jeux concours sur sa plateforme ou non dans l’intention d’accompagner les écoliers...</p>
+            </article>
+
+            <article class="service__card">
+                <h2 class="service__card-title">Espace Numérique de Travail (ENT)</h2>
+                <img src="{{ asset('img/service/espace.png') }}" alt="Espace Numérique de Travail (ENT)" class="service__card-image">
+                <p class="service__card-description">Dans un monde de plus en plus numérique, la création d’une plateforme avec un Espace numérique de travail offre une solution aux étudiants congolais...</p>
+            </article>
+
+            <article class="service__card">
+                <h2 class="service__card-title">Accompagnement des entrepreneurs</h2>
+                <img src="{{ asset('img/service/accompagnement.png') }}" alt="Accompagnement des entrepreneurs" class="service__card-image">
+                <p class="service__card-description">L'US accompagne les entrepreneurs dans l’élaboration de leurs projets, plans d’affaires (business plan), statuts, contrat de travail, règlement intérieur...</p>
+            </article>
+
+            <article class="service__card">
+                <h2 class="service__card-title">Study Coaching Center</h2>
+                <img src="{{ asset('img/service/study.png') }}" alt="Study Coaching Center" class="service__card-image">
+                <p class="service__card-description">C’est l’action de la société pour l’accompagnement de tout étudiant porteur d’un projet d’études à l’international...</p>
+            </article>
+
+            <article class="service__card">
+                <h2 class="service__card-title">Study Coaching Center</h2>
+                <img src="{{ asset('img/service/etude.png') }}" alt="Study Coaching Center" class="service__card-image">
+                <p class="service__card-description">C’est l’action de la société pour l’accompagnement de tout étudiant porteur d’un projet d’études à l’international...</p>
+            </article>
+        </section>
+    </main>
+{% endblock %}

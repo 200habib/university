@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block javascripts %}
+	{% block importmap %}
+		{{ importmap(['app']) }}
+	{% endblock %}
+{% endblock %}
+
+{% block title %}Step Details
+{% endblock %}
+
+{% block body %}
+<div class="container min-h-screen mx-auto p-4 mt-36">
+
+		<h1 class="text-3xl font-bold mb-6">Step Details</h1>
+
+		<div class="bg-white shadow-md rounded-lg overflow-hidden">
+			<table class="min-w-full">
+				<tbody class="bg-gray-100">
+					{# <tr class="border-b">
+						<th class="px-4 py-2 text-left">ID</th>
+						<td class="px-4 py-2">{{ step.id }}</td>
+					</tr> #}
+					<tr class="border-b">
+						<th class="px-4 py-2 text-left">Title</th>
+						<td class="px-4 py-2">{{ step.title }}</td>
+					</tr>
+					<tr class="border-b">
+						<th class="px-4 py-2 text-left">Description</th>
+						<td class="px-4 py-2">{{ step.description }}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<div class="mt-6 text-center">
+			<a href="{{ path('app_step_index') }}" class="bg-custom-blue text-white py-2 px-4 rounded hover:text-custom-hover">Back to list</a>
+
+			<a href="{{ path('app_step_edit', {'id': step.id}) }}" class="text-green-500 bg-custom-blue  py-2 px-4 rounded hover:text-custom-hover">Edit</a>
+{{ include('step/_delete_form.html.twig') }}
+		</div>
+		
+
+			
+		</div>
+	</div>
+</div>
+{% endblock %}

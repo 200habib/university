@@ -1,0 +1,224 @@
+.about {
+    background-color: #f3f4f6;
+    padding: 2.5rem 1rem;
+    margin-top: 2.5rem;
+}
+
+.about__container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.about__header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.about__header-title {
+    font-size: 1.875rem;
+    font-weight: 700;
+    color: #000;
+}
+
+.about__header-description {
+    font-size: 1.125rem;
+    margin-top: 1rem;
+    color: #000;
+}
+
+.about__grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 0;
+}
+
+@media (min-width: 768px) {
+    .about__grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.about__grid--reverse {
+    direction: rtl;
+}
+
+.about__image {
+    position: relative;
+}
+
+.about__image-img {
+    width: 100%;
+    height: auto;
+}
+
+.about__message {
+    background-color: #1e40af;
+    padding: 1.5rem;
+    color: #fff;
+}
+
+.about__message-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.about__message-text {
+    font-size: 1rem;
+}
+
+.about__vision {
+    background-color: #1e40af;
+    padding: 1.5rem;
+    color: #fff;
+}
+
+.about__vision-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.about__vision-list {
+    list-style-type: disc;
+    padding-left: 1.25rem;
+}
+
+.about__vision-item {
+    font-size: 1rem;
+}
+
+.about__team {
+    margin-bottom: 50px;
+    background-color: #f3f4f6;
+}
+
+.about__team-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.about__team-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.about__team-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 1.5rem;
+}
+
+@media (min-width: 640px) {
+    .about__team-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .about__team-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.about__team-member {
+    background-color: #fff;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.about__team-member-img {
+    width: 6rem;
+    height: 6rem;
+    object-fit: cover;
+    border-radius: 50%;
+    margin: 0 auto 0.5rem;
+}
+
+.about__team-member-name {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.about__team-member-role {
+    font-size: 0.875rem;
+    color: #666;
+}
+
+.about {
+    margin-top: 100px;
+    background-color: #f9fafb;
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+.about__container {
+    padding: 1rem;
+}
+
+.about__header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.about__header-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #1e40af;
+    margin-bottom: 1rem;
+}
+
+.about__header-description {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #555;
+}
+
+.about__message {
+    background-color: #ffffff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+}
+
+.about__message-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #1e40af;
+    margin-bottom: 1rem;
+}
+
+.about__message-text {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #555;
+}
+
+.about__vision {
+    background-color: #ffffff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.about__vision-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #1e40af;
+    margin-bottom: 1rem;
+}
+
+.about__vision-list {
+    list-style-type: disc;
+    padding-left: 1.5rem;
+}
+
+.about__vision-item {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #555;
+    margin-bottom: 0.5rem;
+}

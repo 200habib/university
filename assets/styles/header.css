@@ -1,0 +1,159 @@
+.header {
+    z-index: 1000;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    background-color: #14213D; 
+    padding: 0px 20px 9px 20px;
+}
+
+.nav_header {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    z-index: 1001;
+    background-color: #14213D;
+}
+
+.logo img {
+    height: 50px;
+}
+
+
+
+.burger img {
+    width: 30px;
+    cursor: pointer;
+    display: none;
+}
+
+.nav_links_container {
+
+    display: flex;
+    justify-content: flex-end;
+    height: 80px;
+}
+
+.nav_links {
+    list-style: none;
+    display: flex;
+    align-items: center;
+
+}
+
+ul>li {
+    margin: 23px;
+}
+
+.nav_link {
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.nav_link:hover {
+    background-color: #14213D;
+    color: #ecf0f1;
+    padding-bottom: 3px;
+    border-bottom: solid 1px #1E3A8A;
+}
+
+.nav_button {
+    background-color: #1E3A8A;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.nav_button:hover {
+    background-color: #14213D;
+}
+
+.nav_icon_profile {
+    margin: 0px;
+
+}
+
+.nav_icon_profile img {
+    width: 50px;
+}
+
+.header {
+    position: relative;
+    position: fixed;
+}
+
+.nav_liste_content_iconprofile {
+    padding: 0 30px 0 25px;
+    position: absolute;
+    z-index: 99;
+    background-color: rgb(20, 33, 61);
+    display: flex;
+    top: -421px;
+    right: 0;
+
+    transition: top 0.5s ease;
+
+    ul>li>a {
+        color: #14213D;
+        transition: color 0.5s ease;
+    }
+}
+
+.nav_liste_content_iconprofile.active {
+    top: 78px;
+
+    ul>li>a {
+        color: white;
+    }
+}
+
+
+.nav_liste_content_iconprofile ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.nav_links {
+    z-index: 10000;
+    background-color: rgb(20, 33, 61);
+}
+
+
+@media (max-width: 834px) {
+    .burg {
+        color: white;
+        text-align: center;
+        font-size: 15px;
+    }
+
+    .nav_links {
+        z-index: 10000;
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        background-color: #14213D;
+        width: 100%;
+        display: none;
+    }
+
+    .nav_links_container {
+
+        display: none;
+    }
+
+    .nav_links.show {
+        display: flex;
+
+    }
+    .burger img {
+        display: block;
+    }
+}

@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}À propos{% endblock %}
+
+{% block javascripts %}
+    {% block importmap %}
+        {{ importmap(['app']) }}
+    {% endblock %}
+{% endblock %}
+
+{% block body %}
+    <section class="about">
+        <section class="about__container">
+            <header class="about__header">
+                <h2 class="about__header-title">NOTRE ESPACE</h2>
+                <p class="about__header-description">
+                    Nous sommes présents dans la région de Paris (en France) et à Kinshasa (en Rép. Démocratique du Congo). Nous avons acquis un empan considérable grâce aux compétences et aux performances démontrées face à nos clients au fil des années. Nous vous assurons que vous ne serez pas déçus en nouant une relation fiduciaire avec nous. Certes, avec ferme assurance, nous espérons avoir un bon témoignage de votre part après nous avoir fait confiance.
+                </p>
+            </header>
+
+            <div class="about__grid">
+                <figure class="about__image">
+                    <img src="{{ asset('img/about/equipe.png') }}" alt="Équipe de direction" class="about__image-img">
+                </figure>
+                <article class="about__message">
+                    <h3 class="about__message-title">Message de la Direction</h3>
+                    <p class="about__message-text">
+                        Nous accompagnons la société via le numérique et facilitons l'accès à l'emploi pour les chômeurs et les personnes éloignées de la vie professionnelle. Nous vulgarisons les connaissances dans divers domaines et aidons les étudiants à concrétiser leurs projets d'études en Europe. Nous offrons une médiathèque et une librairie en ligne, ainsi qu'un Centre de Coaching d'études pour les inscriptions universitaires et l'obtention de visas.
+                    </p>
+                </article>
+            </div>
+
+            <div class="about__grid about__grid--reverse">
+				
+                <figure class="about__image">
+                    <img src="{{ asset('img/about/equipes.png') }}" alt="Équipe au travail" class="about__image-img">
+                </figure>
+
+				<article class="about__vision">
+					<h2 class="about__vision-title">Vision et valeurs</h2>
+					<ul class="about__vision-list">
+						<li class="about__vision-item">Bienveillance</li>
+						<li class="about__vision-item">Respect</li>
+						<li class="about__vision-item">Responsabilité</li>
+						<li class="about__vision-item">Divertissement</li>
+					</ul>
+				</article>
+            </div>
+        </section>
+
+        <section class="about__team">
+            <header class="about__team-header">
+                <h2 class="about__team-title">L'équipe</h2>
+            </header>
+            <div class="about__team-grid">
+                <article class="about__team-member">
+                    <img src="{{ asset('img/about/plamedy.png') }}" alt="Plamedy BAKU - Président" class="about__team-member-img">
+                    <p class="about__team-member-name">Plamedy BAKU</p>
+                    <p class="about__team-member-role">Président</p>
+                </article>
+                <article class="about__team-member">
+                    <img src="{{ asset('img/about/olivier.png') }}" alt="Olivier SALA - Directeur Général" class="about__team-member-img">
+                    <p class="about__team-member-name">Olivier SALA</p>
+                    <p class="about__team-member-role">Directeur Général</p>
+                </article>
+                <article class="about__team-member">
+                    <img src="{{ asset('img/about/julien.png') }}" alt="Julien KIALA - DGD, Rlt et Adm" class="about__team-member-img">
+                    <p class="about__team-member-name">Julien KIALA</p>
+                    <p class="about__team-member-role">DGD, Rlt et Adm</p>
+                </article>
+                <article class="about__team-member">
+                    <img src="{{ asset('img/about/ephraim.png') }}" alt="Ephraim KABELUA - Technique et logistique" class="about__team-member-img">
+                    <p class="about__team-member-name">Ephraim KABELUA</p>
+                    <p class="about__team-member-role">Technique et logistique</p>
+                </article>
+            </div>
+        </section>
+    </section>
+{% endblock %}

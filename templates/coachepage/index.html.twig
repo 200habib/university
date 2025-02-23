@@ -1,0 +1,122 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Coach Page
+{% endblock %}
+
+{% block javascripts %}
+	{% block importmap %}
+		{{ importmap(['app']) }}
+	{% endblock %}
+{% endblock %}
+
+
+
+{% block body %}
+	<div class="container mx-auto px-4 py-6 mt-20 lg:mt-32 mb-10">
+
+
+		<div
+			class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+			
+			<div class="bg-gray-200 rounded-lg shadow-md p-4 flex items-center">
+				<div class="bg-custom-blue text-white rounded-l-lg p-4">
+					<img src="{{ asset('img/admin/iconuser.png') }}" alt="Icon User" class="w-8 h-8">
+				</div>
+				<div class="ml-4">
+					<p class="text-sm font-medium">Effectif Coaches</p>
+					<p class="text-3xl font-bold">{{ totalUser }}</p>
+				</div>
+			</div>
+
+			<!-- Carte pour le messager -->
+			<a href="{{ path('app_existing_conversations') }}" class="bg-gray-200 rounded-lg shadow-md p-4 flex items-center">
+
+				<div class="bg-custom-blue text-white rounded-l-lg p-4">
+					<img src="{{ asset('img/admin/message.png') }}" alt="Icon Message" class="w-8 h-8">
+				</div>
+				<div class="ml-4">
+					<p class="text-sm font-medium">Messager</p>
+				</div>
+			</a>
+
+			<!-- Carte pour le profil du coach -->
+			<a href="{{ path('app_myprofile') }}" class="bg-gray-200 rounded-lg shadow-md p-4 flex items-center">
+				<div class="bg-custom-blue text-white rounded-l-lg p-4">
+					<img src="{{ asset('img/admin/iconcoache.png') }}" alt="Icon Profile" class="w-8 h-8">
+				</div>
+				<div class="ml-4">
+					<p class="text-sm font-medium">Mon profil</p>
+				</div>
+			</a>
+		</div>
+
+		<div class="mt-6 text-center"></div>
+
+		<div class="flex space-x-5 flex-col sm:flex-row justify-between items-center mb-6">
+			<h1 class="text-2xl font-bold mb-4 sm:mb-0 order-2 sm:order-1">Liste des collègues</h1>
+			<div class="flex space-x-2 order-1 sm:order-2">
+				<a href="{{ path('app_existing_conversations') }}" class="bg-custom-blue text-white py-2 px-4 rounded hover:text-custom-hover transition duration-300">
+					Messages
+				</a>
+				{# <a href="{{ path('app_documents_index') }}" class="bg-custom-blue text-white py-2 px-4 rounded hover:text-custom-hover transition duration-300">
+									Documents envoyés
+								</a>
+								<a href="{{ path('app_appointment_index') }}" class="bg-custom-blue text-white py-2 px-4 rounded hover:text-custom-hover transition duration-300" aria-label="Voir les rendez-vous">Voir les rendez-vous
+								</a> #}
+			</div>
+		</div>
+
+		<!-- Liste des coachs -->
+		<div class="overflow-x-auto max-h-96 mt-10 mb-10">
+			<table class="min-w-full bg-white border border-gray-300 rounded-lg shadow-md">
+				<thead class="bg-gray-100 sticky top-0 z-10">
+					<tr class="border-b">
+						<th class="py-4 px-4 text-left text-gray-700 hidden md:table-cell">Nom</th>
+						<!-- Hide on mobile -->
+						<th class="py-4 px-4 text-left text-gray-700 hidden md:table-cell">Post Nom</th>
+						<!-- Hide on mobile -->
+						<th class="py-4 px-4 text-left text-gray-700">Prénom</th>
+						<th class="py-4 px-4 text-left text-gray-700">Email</th>
+						<th class="py-2 px-4">
+							<form class="max-w-xs mx-auto">
+								<label for="coach-search" class="mb-1 text-sm font-medium sr-only">Search</label>
+								<div class="relative">
+									<input type="search" id="coach-search" class="w-full p-1 text-black rounded-lg border border-[#14213D] focus:outline-none" placeholder="Nom de coach" required/>
+									<button type="submit" class="text-white absolute right-1 top-1 bg-custom-blue border-2 font-medium rounded-lg text-xs px-2 py-1">Search</button>
+								</div>
+							</form>
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for user in users %}
+						{% set profile = user.profile %}
+						{% if currentUser.id != user.id %}
+
+						<tr class="border-b hover:bg-gray-50 cursor-pointer" role="button" tabindex="0" onclick="window.location='{{ path('app_coach_profile', { id: user.id }) }}';">
+							<td class="py-2 px-4 hidden md:table-cell">{{ profile.name }}</td>
+							<!-- Hide on mobile -->
+							<td class="py-2 px-4 hidden md:table-cell">{{ profile.postname }}</td>
+							<!-- Hide on mobile -->
+							<td class="py-2 px-4">{{ profile.firstname }}</td>
+							<td class="py-2 px-4">{{ user.email }}</td>
+							<td class="py-2 px-4">
+								<div class="flex space-x-2">
+									<a href="{{ path('app_coach_profile', { id: user.id }) }}">
+										<img src="{{ asset('img/admin/invisible.png') }}" alt="Voir plus" class="inline w-6 h-6 sm:w-4 sm:h-4 mx-1"/>
+									</a>
+									<a href="{{ path('app_conversation_create', {'id': user.id}) }}">
+										<img src="{{ asset('img/admin/messager.png') }}" alt="Envoyer un message" class="inline w-6 h-6 sm:w-4 sm:h-4 mx-1"/>
+									</a>
+
+
+								</div>
+							</td>
+						</tr>
+						{% endif %}
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+{% endblock %}
