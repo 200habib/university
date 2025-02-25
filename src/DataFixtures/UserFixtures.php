@@ -23,85 +23,95 @@ class UserFixtures extends Fixture
     {
         $teamsRepo = $manager->getRepository(Teams::class);
         $teams = $teamsRepo->findAll();
-
+    
         if (empty($teams)) {
             throw new \RuntimeException('No teams found. Please load teams fixtures first.');
         }
-
-        // Garder une trace des e-mails générés pour assurer l'unicité
+    
         $usedEmails = [];
-
+        $coaches = []; // Stocker les coachs
+    
         for ($i = 1; $i <= 10; $i++) {
             $user = new User();
-
-            // Associer un profil à l'utilisateur
+    
+            // Associer un profil
             $profile = $this->getReference('profile_' . $i);
             if (!$profile) {
                 throw new \RuntimeException("Référence de profil introuvable pour l'utilisateur avec l'index " . $i);
             }
-
+    
             $user->setProfile($profile);
-
-            // Crée un email basé sur le nom et prénom du profil
+    
+            // Générer un email unique
             $firstName = strtolower(str_replace(' ', '', $profile->getFirstname()));
             $lastName = strtolower(str_replace(' ', '', $profile->getName()));
             $email = $firstName . '.' . $lastName . '@gmail.com';
-
-            // Vérifier l'unicité de l'email et ajuster si nécessaire
+    
             $emailCount = 1;
             while (in_array($email, $usedEmails)) {
                 $email = $firstName . '.' . $lastName . $emailCount . '@gmail.com';
                 $emailCount++;
             }
-            $usedEmails[] = $email; // Ajouter l'email à la liste des e-mails utilisés
+            $usedEmails[] = $email;
             $user->setEmail($email);
-
-            // Créez un mot de passe et affichez-le pour les administrateurs
+    
+            // Mot de passe
             $plainPassword = 'password' . $i;
             $hashedPassword = $this->passwordHasher->hashPassword($user, $plainPassword);
             $user->setPassword($hashedPassword);
-
-            // Définir les rôles des utilisateurs
+    
+            // Définir les rôles et stocker les coachs
             if ($i <= 2) {
-                // Les deux premiers utilisateurs sont des administrateurs
                 $user->setRoles(['ROLE_ADMIN']);
                 echo "Admin Email: " . $user->getEmail() . " | Mot de passe: " . $plainPassword . "\n";
-            }else if ($i >2 && $i <= 4) {
-                // Les deux premiers utilisateurs sont des administrateurs
+            } elseif ($i > 2 && $i <= 4) {
                 $user->setRoles(['ROLE_COACH']);
+                $coaches[] = $user; // Stocke les coachs ici
                 echo "Coach Email: " . $user->getEmail() . " | Mot de passe: " . $plainPassword . "\n";
             } else {
-                // Les autres utilisateurs sont des étudiants
                 $user->setRoles(['ROLE_STUDENT']);
                 echo "User Email: " . $user->getEmail() . " | Mot de passe: " . $plainPassword . "\n";
             }
-
+    
             // Associer une équipe aléatoire
             $user->setTeams($teams[array_rand($teams)]);
-
-            // Créez et associez des documents à l'utilisateur
-            for ($j = 1; $j <= 3; $j++) {
-                $document = new Documents();
-                $document->setFileName('Document ' . $j . ' for user ' . $i);
-
-                // Crée un fichier temporaire pour simuler un fichier téléchargé
-                $tempFile = tempnam(sys_get_temp_dir(), 'upload_');
-                file_put_contents($tempFile, 'This is the content of the file ' . $j);
-
-                $file = new File($tempFile); // Crée un objet File
-                $document->setFilePath($file); // Associe l'objet File au document
-                $document->setUser($user); // Utilise setUser au lieu de addUser
-                $manager->persist($document);
-            }
-
+    
             $manager->persist($user);
         }
-
-        $manager->flush();
-
+    
+        $manager->flush(); //  On flush AVANT de créer les documents pour avoir les coachs en base
+    
+        // Récupérer tous les étudiants après flush
+        $students = $manager->getRepository(User::class)->findByRole('ROLE_STUDENT');
+    
+        foreach ($students as $student) {
+            for ($j = 1; $j <= 3; $j++) {
+                $document = new Documents();
+                $document->setFileName('Document ' . $j);
+    
+                // Créer un fichier temporaire
+                $tempFile = tempnam(sys_get_temp_dir(), 'upload_');
+                file_put_contents($tempFile, 'This is the content of the file ' . $j);
+                $file = new File($tempFile);
+                $document->setFilePath($file);
+                $document->setUser($student);
+    
+                // Assigner un coach aléatoire si possible
+                if (!empty($coaches)) {
+                    $randomCoach = $coaches[array_rand($coaches)];
+                    $document->setCoach($randomCoach);
+                }
+    
+                $manager->persist($document);
+            }
+        }
+    
+        $manager->flush(); //  Flush final pour les documents
+    
         // Nettoyage des fichiers temporaires
         foreach (glob(sys_get_temp_dir() . '/upload_*') as $file) {
             unlink($file);
         }
     }
+    
 }
